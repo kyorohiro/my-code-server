@@ -16,3 +16,12 @@ RUN apt-get install libboost-all-dev -y
 RUN wget https://github.com/cdr/code-server/releases/download/1.939-vsc1.33.1/code-server1.939-vsc1.33.1-linux-x64.tar.gz
 RUN tar xzf code-server1.939-vsc1.33.1-linux-x64.tar.gz -C ./ --strip-components 1
 
+#
+# CMAKE
+RUN apt-get install software-properties-common -y
+#RUN add-apt-repository ppa:george-edison55/cmake-3.14 -y
+#RUN apt-get update
+RUN apt-get install cmake -y
+RUN apt-get install ninja-build -y
+
+
