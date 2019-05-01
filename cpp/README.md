@@ -19,6 +19,13 @@ mkdir /works/w
 (3) and open 'http://127.0.0.1:8443/' at your browser 
 
 
+
+
+## VSCode Setting 
+
+https://code.visualstudio.com/docs/languages/cpp
+
+
 ```c_cpp_properties.json
 {
     "configurations": [
