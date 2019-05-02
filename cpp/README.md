@@ -28,7 +28,8 @@ https://code.visualstudio.com/docs/languages/cpp
 
 add setting file in .vscode dirctory
 
-``` : c_cpp_properties.json
+```
+# c_cpp_properties.json
 {
     "configurations": [
         {
