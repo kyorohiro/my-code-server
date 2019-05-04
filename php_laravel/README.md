@@ -25,6 +25,12 @@ mkdir /app/w
 ![](../root_page.jpg)
 
 
+## VSCode setting 
+
+https://code.visualstudio.com/docs/languages/php
+
+https://laravel-news.com/tag/vscode
+
 ## Create Project
 
 
