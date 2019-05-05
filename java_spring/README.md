@@ -57,6 +57,8 @@ $ gradle build
 
 (3) add eclipse plugin for redhat java plugin
 
+build.gradle
+
 ```
 plugins {
     id 'java'
@@ -74,7 +76,9 @@ dependencies {
 }
 
 mainClassName = 'hello.App'
+```
 
+(4) RUN Hello World!!
 
 ```
 $ gradle eclipse
