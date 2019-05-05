@@ -90,7 +90,7 @@ $ gradle run
 
 
 
-# RUN Springboot
+# RUN Spring Boot
 
 (1) modify build.gradle
 
