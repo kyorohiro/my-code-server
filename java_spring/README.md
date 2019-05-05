@@ -29,7 +29,7 @@ https://marketplace.visualstudio.com/items?itemName=redhat.java
 
 
 
-(2)
+(2) OPTION
 
 .vscode/settings.json
 
@@ -55,9 +55,7 @@ $ gradle init --type java-application
 $ gradle build
 ```
 
-(3) add eclipse plugin for redhat java plugin
-
-build.gradle
+(3) add eclipse plugin for redhat java plugin in build.gradle
 
 ```
 plugins {
