@@ -6,7 +6,8 @@ Build dart's development environment with vscode on docker by code-server
 ```
 git clone https://github.com/kyorohiro/my-code-server.git
 cd my-code-server/dart_flutter_web
-docker run -p 8443:8443 -p 8080:8080 -it dart_vscode bash
+docker build . -t  dart_flutter_web 
+docker run -p 8443:8443 -p 8080:8080 -it dart_flutter_web vscode bash
 ```
 
 (2) run vscode at code-server
