@@ -60,4 +60,99 @@ dependencies {
 
 ```
 
-(5) 
+(5) src/main/resources/application.properties 
+
+```
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+spring.datasource.url=jdbc:mariadb://mysql/hello
+spring.datasource.username=root
+spring.datasource.password=passwd
+```
+
+(6) mybatis-config.xml
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC 
+        "-//mybatis.org//DTD Config 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+</configuration>
+
+```
+
+(7) src/main/java/helloworld/App.java 
+
+```
+package helloworld;
+
+import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
+
+@SpringBootApplication
+public class App {
+
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
+    }
+
+    // MyBatisの設定
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setConfigLocation(new ClassPathResource("/mybatis-config.xml"));
+        return sessionFactory.getObject();
+    }
+}
+```
+
+(8) src/main/java/helloworld/GreetingController.java 
+
+```
+package helloworld;
+
+import java.util.concurrent.atomic.AtomicLong;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class GreetingController {
+
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
+
+    @RequestMapping("/hello")
+    public String greeting() {
+        System.out.print(">> greeting");
+        return "/hello";
+    }
+}
+```
+
+(9) src/main/resources/templates/hello.html 
+```
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>hello.html</title>
+  </head>
+  <body>
+    Hello!!
+  </body>
+</html>
+
+```
+....
