@@ -4,8 +4,8 @@
 (1)
 
 ```
-$ docker-compose up -d
 $ docker-compose build
+$ docker-compose up -d
 ```
 
 (2) open browser http://127.0.0.1:8443
