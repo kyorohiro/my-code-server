@@ -11,10 +11,14 @@ $ docker-compose build
 (2) open browser http://127.0.0.1:8443
 
 
-(3)
+(3)  Create App
 
+```
+$ gradle init --type java-application
+$ gradle build
+```
 
-build.gradle 
+(4) modify build.gradle 
 
 ```
 buildscript {
@@ -55,3 +59,5 @@ dependencies {
 }
 
 ```
+
+(5) 
