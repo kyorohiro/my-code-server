@@ -155,4 +155,8 @@ public class GreetingController {
 </html>
 
 ```
-....
+
+(10) run
+```
+gradle bootRun
+```
