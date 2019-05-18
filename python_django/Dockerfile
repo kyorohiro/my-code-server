@@ -35,7 +35,11 @@ RUN tar xf Python-3.7.3.tgz
 WORKDIR /works/Python-3.7.3
 RUN ./configure --enable-optimizations
 RUN make altinstall
+RUN pip3.7  install --upgrade pip
+RUN ln /usr/local/bin/python3.7 /usr/local/bin/python  
 WORKDIR /works/w
+RUN pip install Django
+
 
 # docbuild -t python_django_vscode .
 # docker run -p 8443:8443 -p8080:8080 -p8022:22  -it python_django_vscode 
