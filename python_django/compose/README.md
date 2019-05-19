@@ -52,9 +52,19 @@ $ mysql -uroot -hmysql -p
 https://marketplace.visualstudio.com/items?itemName=ms-python.python
 https://code.visualstudio.com/docs/python/editing
 
-https://stackoverflow.com/questions/21287311/python-tell-my-ide-what-type-an-object-is
 
+https://code.visualstudio.com/docs/python/tutorial-django
 
+https://stackoverflow.com/questions/45135263/class-has-no-objects-member
+
+```
+$pip install pylint-django
+
+# .vscode/settings.json
+{"python.linting.pylintArgs": [
+     "--load-plugins=pylint_django"
+],}
+```
 ### type check
 
 https://pypi.org/project/typeguard/
