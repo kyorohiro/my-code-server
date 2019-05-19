@@ -25,6 +25,10 @@ ENTRYPOINT /works/code-server  --allow-http --no-auth
 
 
 #
+# mysql client 
+RUN apt-get -y install mysql-client
+
+#
 # install python
 # --no-cache
 RUN apt-get install build-essential checkinstall -y
