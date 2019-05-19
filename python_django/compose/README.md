@@ -47,4 +47,24 @@ https://tutorial.djangogirls.org/
 $ mysql -uroot -hmysql -p
 ```
 
+### plugin
 
+https://marketplace.visualstudio.com/items?itemName=ms-python.python
+https://code.visualstudio.com/docs/python/editing
+
+https://stackoverflow.com/questions/21287311/python-tell-my-ide-what-type-an-object-is
+
+
+### type check
+
+https://pypi.org/project/typeguard/
+
+```
+from typeguard import typechecked
+
+@typechecked
+def hello(message:str) -> str:
+    print(str)
+
+
+```
