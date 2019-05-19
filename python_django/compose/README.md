@@ -10,3 +10,33 @@ $ docker-compose up -d
 
 (2) open browser http://127.0.0.1:8443
 
+
+## VSCode setting 
+
+https://marketplace.visualstudio.com/items?itemName=ms-python.python
+
+
+## Create Project
+
+
+(1) Terminal -> New Terminal on VSCODE
+
+(2) on Terminal
+
+```
+root@8e5699b9caa4:/works/w# django-admin startproject mysite
+root@8e5699b9caa4:/works/w# cd mtsite
+root@8e5699b9caa4:/works/w# python manage.py runserver 0.0.0.0:8080
+```
+
+(3) and, open 'http://127.0.0.1:8080/' at your browser
+
+![](../welcome.jpg)
+
+
+
+## REF
+
+### Tutorial
+
+https://tutorial.djangogirls.org/
