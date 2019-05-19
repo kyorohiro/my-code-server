@@ -40,3 +40,11 @@ root@8e5699b9caa4:/works/w# python manage.py runserver 0.0.0.0:8080
 ### Tutorial
 
 https://tutorial.djangogirls.org/
+
+### mysql from vscode
+
+```
+$ mysql -uroot -hmysql -p
+```
+
+

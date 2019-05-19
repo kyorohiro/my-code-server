@@ -44,6 +44,6 @@ RUN ln /usr/local/bin/python3.7 /usr/local/bin/python
 WORKDIR /works/w
 RUN pip install Django
 
-
+RUN apt-get install libmysqlclient-dev -y
 # docbuild -t python_django_vscode .
 # docker run -p 8443:8443 -p8080:8080 -p8022:22  -it python_django_vscode 
