@@ -47,3 +47,38 @@ root@8e5699b9caa4:/works/w# python manage.py runserver 0.0.0.0:8080
 ### Tutorial
 
 https://tutorial.djangogirls.org/
+
+
+
+
+### plugin
+
+https://marketplace.visualstudio.com/items?itemName=ms-python.python
+https://code.visualstudio.com/docs/python/editing
+
+
+https://code.visualstudio.com/docs/python/tutorial-django
+
+https://stackoverflow.com/questions/45135263/class-has-no-objects-member
+
+```
+$pip install pylint-django
+
+# .vscode/settings.json
+{"python.linting.pylintArgs": [
+     "--load-plugins=pylint_django"
+],}
+```
+### type check
+
+https://pypi.org/project/typeguard/
+
+```
+from typeguard import typechecked
+
+@typechecked
+def hello(message:str) -> str:
+    print(str)
+
+
+```
