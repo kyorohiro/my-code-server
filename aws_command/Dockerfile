@@ -31,6 +31,7 @@ RUN tar xzf code-server1.939-vsc1.33.1-linux-x64.tar.gz -C ./ --strip-components
 #
 # AWS CLI
 
+RUN apt-get install -y groff
 RUN pip install awscli
 
 
