@@ -3,8 +3,8 @@
 (1) run a docker image.
  
 ```
-docker build -t clang_vscode .
-docker run -p 8443:8443 -p 8080:8080 -it clang_vscode bash
+docker build -t aws_command  .
+docker run -p 8443:8443 -p 8080:8080 -it aws_command bash
 ```
 
 (2) run vscode at code-server
