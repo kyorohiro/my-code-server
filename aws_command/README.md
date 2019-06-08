@@ -18,6 +18,12 @@ mkdir /works/w
 
 # SAMPLE CREATE EC2 INSTANCE
 
+### configure
+
+```
+$ aws configure
+
+```
 
 ### create subnet
 
