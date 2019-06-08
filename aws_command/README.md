@@ -22,7 +22,10 @@ mkdir /works/w
 
 ```
 $ aws configure
-
+AWS Access Key ID [None]: xxxxxxxxxx
+AWS Secret Access Key [None]: xxxxxxxxxx
+Default region name [None]: ap-northeast-1
+Default output format [None]: json
 ```
 
 ### create subnet
