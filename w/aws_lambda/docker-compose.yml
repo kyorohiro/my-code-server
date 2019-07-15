@@ -1,0 +1,16 @@
+version: '3'
+services:
+  base:
+    build: .
+    ports:
+     - "8080:8080"
+     - "8443:8443"
+    links:
+     - dynamodb
+    command: /works/code-server/code-server /works --allow-http --no-auth
+
+  
+  dynamodb:
+    image: amazon/dynamodb-local:1.11.477
+    ports:
+     - "8000:8000"
