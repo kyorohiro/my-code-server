@@ -9,7 +9,17 @@ services:
      - dynamodb
      - localstack-s3
     command: /works/code-server/code-server /works --allow-http --no-auth
-  
+
+  lambda:
+    image: lambci/lambda:python3.7
+#    entrypoint: /bin/bash
+    entrypoint: tail -f /dev/null
+    links:
+     - dynamodb
+     - localstack-s3
+    volumes:
+      - .:/data
+
   dynamodb:
     image: amazon/dynamodb-local:1.11.477
     ports:
