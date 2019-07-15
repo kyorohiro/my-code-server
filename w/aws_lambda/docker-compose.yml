@@ -7,10 +7,27 @@ services:
      - "8443:8443"
     links:
      - dynamodb
+     - localstack-s3
     command: /works/code-server/code-server /works --allow-http --no-auth
-
   
   dynamodb:
     image: amazon/dynamodb-local:1.11.477
     ports:
      - "8000:8000"
+  
+  localstack-s3:
+    image: localstack/localstack:latest
+    container_name: localstack-s3
+    environment:
+     - SERVICES=s3
+     - DEFAULT_REGION=eu-west-2
+     - DATA_DIR=/tmp/localstack/data
+    ports:
+     - "5002:5002"
+     - "9999:8080"
+     - "4572:4572"
+#     - '4563-4584:4563-4584'
+    volumes:
+      - ./.localstack:/tmp/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+

@@ -7,6 +7,11 @@ RUN yum clean all
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install boto3
 
+#
+# AWS
+#
+RUN pip3 install awscli --upgrade --user
+ENV PATH="${PATH}:/root/.local/bin"
 
 #
 # OPENSSL
