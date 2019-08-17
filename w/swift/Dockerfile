@@ -11,6 +11,10 @@ RUN apt-get upgrade -y
 RUN apt-get install clang -y --fix-missing
 RUN apt-get install curl wget -y
 WORKDIR /works
+WORKDIR /app
+WORKDIR /works
+RUN wget https://github.com/cdr/code-server/releases/download/2.preview.5-vsc1.37.0/code-server2.preview.5-vsc1.37.0-linux-x86_64.tar.gz
+RUN tar --strip-components 1 -xzf code-server2.preview.5-vsc1.37.0-linux-x86_64.tar.gz
 
 #
 # swift
@@ -44,26 +48,29 @@ ENV SWIFT_PLATFORM=$SWIFT_PLATFORM \
     SWIFT_BRANCH=$SWIFT_BRANCH \
     SWIFT_VERSION=$SWIFT_VERSION
 
-# Download GPG keys, signature and Swift package, then unpack, cleanup and execute permissions for foundation libs
-RUN SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo "$SWIFT_PLATFORM" | tr -d .)/$SWIFT_VERSION/$SWIFT_VERSION-$SWIFT_PLATFORM.tar.gz \
-    && apt-get update \
-    && apt-get install -y curl \
-    && curl -fSsL $SWIFT_URL -o swift.tar.gz \
-    && curl -fSsL $SWIFT_URL.sig -o swift.tar.gz.sig \
-    && apt-get purge -y curl \
-    && apt-get -y autoremove \
-    && export GNUPGHOME="$(mktemp -d)"
-
-  #
-RUN wget https://swift.org/builds/swift-5.0.2-release/ubuntu1804/swift-5.0.2-RELEASE/swift-5.0.2-RELEASE-ubuntu18.04.tar.gz
-RUN tar --strip-components 1  -xzf swift-5.0.2-RELEASE-ubuntu18.04.tar.gz --directory /
+RUN wget https://swift.org/builds/swift-5.1-branch/ubuntu1804/swift-5.1-DEVELOPMENT-SNAPSHOT-2019-08-16-a/swift-5.1-DEVELOPMENT-SNAPSHOT-2019-08-16-a-ubuntu18.04.tar.gz
+#https://swift.org/builds/swift-5.0.2-release/ubuntu1804/swift-5.0.2-RELEASE/swift-5.0.2-RELEASE-ubuntu18.04.tar.gz
+RUN tar --strip-components 1  -xzf swift-5.1-DEVELOPMENT-SNAPSHOT-2019-08-16-a-ubuntu18.04.tar.gz --directory /
 RUN chmod -R o+r /usr/lib/swift
 
 
-WORKDIR /app
+
 WORKDIR /works
-RUN wget https://github.com/cdr/code-server/releases/download/2.preview.5-vsc1.37.0/code-server2.preview.5-vsc1.37.0-linux-x86_64.tar.gz
-RUN tar --strip-components 1 -xzf code-server2.preview.5-vsc1.37.0-linux-x86_64.tar.gz
-
-CMD [ "/works/code-server", "--allow-http", "--no-auth","--port","8443", "/app" ]
-
+RUN git clone https://github.com/apple/sourcekit-lsp.git
+WORKDIR /works/sourcekit-lsp
+#RUN git checkout tags/swift-5.1-DEVELOPMENT-SNAPSHOT-2019-06-26-a
+RUN apt-get update 
+RUN apt-get install libsqlite3-dev -y
+RUN apt-get install libdispatch-dev -y
+#RUN swift build -Xcxx -I/usr/lib/swift 
+RUN apt-get install libncurses5-dev -y
+RUN apt-get install libncurses5 -y
+RUN swift build -Xcxx -I/usr/lib/swift 
+RUN swift package update
+RUN apt-get install nodejs -y
+RUN apt-get install npm -y
+ENV PATH="/works/sourcekit-lsp/.build/debug:${PATH}"
+WORKDIR /works/sourcekit-lsp/Editors/vscode
+RUN npm run createDevPackage
+RUN /works/code-server --install-extension out/sourcekit-lsp-vscode-dev.vsix
+CMD [ "/works/code-server", "--allow-http", "--no-auth","--port","8443", "/works" ]
