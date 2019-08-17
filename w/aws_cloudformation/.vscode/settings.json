@@ -1,0 +1,13 @@
+{
+    "yaml.schemas": {
+        "https://d2senuesg1djtx.cloudfront.net/latest/gzip/CloudFormationResourceSpecification.json": [
+            "*.cf.yaml",
+            "*.cf.yml"
+        ]
+    },
+    "yaml.format.enable": true,
+    "yaml.customTags": [
+        "!Ref",
+        "!GetAtt"
+    ]
+}

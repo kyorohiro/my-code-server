@@ -1,0 +1,13 @@
+version: "3"
+services: 
+  base:
+    build: ./dev
+    ports: 
+     - 8080:8080
+     - 8443:8443
+    volumes: 
+     - "./:/works/w"
+    command: "/works/code-server --allow-http --no-auth /works/w"
+
+
+

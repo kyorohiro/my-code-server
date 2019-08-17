@@ -1,0 +1,268 @@
+
+AWSTemplateFormatVersion: 2010-09-09
+# https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/cfn-resource-specification.html?tag=duckduckgo-d-20
+Description: 
+  VPC & AWS Batch
+Parameters:
+  AppId:
+    Description:  App Id 
+    Type: String
+    Default: MyApp
+  KeyPair:
+    Description: Key Pair
+    Type: AWS::EC2::KeyPair::KeyName
+
+#kyorohiro-works
+Resources:
+  AppVpc:
+   # https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html
+   Type: AWS::EC2::VPC
+   Properties:
+     CidrBlock: 10.0.0.0/16
+     EnableDnsSupport: true
+     EnableDnsHostnames: true
+     InstanceTenancy: default
+     Tags:
+        - Key: Name
+          Value: !Ref AppId
+
+  AppPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref AppVpc
+      Tags:
+        - Key: Name
+          Value: !Ref AppId
+  AppPrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref AppVpc
+      Tags:
+        - Key: Name
+          Value: !Ref AppId
+  AppPublicSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref AppVpc
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+        - Key: Name
+          Value: !Ref AppId
+
+  AppPublicSubnetARouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref AppPublicRouteTable
+      SubnetId: !Ref AppPublicSubnetA
+
+  AppPublicSubnetC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.2.0/24
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref AppVpc
+      AvailabilityZone: "ap-northeast-1c"
+      Tags:
+        - Key: Name
+          Value: !Ref AppId
+
+  AppPublicSubnetCRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref AppPublicRouteTable
+      SubnetId: !Ref AppPublicSubnetC
+
+
+  AppPrivateSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.11.0/24
+      VpcId: !Ref AppVpc
+      AvailabilityZone: "ap-northeast-1a"
+      Tags:
+        - Key: Name
+          Value: !Ref AppId
+
+  AppPeivateSubnetARouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref AppPrivateRouteTable
+      SubnetId: !Ref AppPrivateSubnetA
+
+  AppPrivateSubnetC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.12.0/24
+      VpcId: !Ref AppVpc
+      AvailabilityZone: "ap-northeast-1c"
+      Tags:
+        - Key: Name
+          Value: !Ref AppId
+
+  AppPrivateSubnetCRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref AppPrivateRouteTable
+      SubnetId: !Ref AppPrivateSubnetC
+
+
+
+  AppInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Ref AppId
+
+  AppAtachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref AppVpc
+      InternetGatewayId: !Ref AppInternetGateway
+
+  AppRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AppInternetGateway
+    Properties:
+      RouteTableId: !Ref AppPublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref AppInternetGateway
+  BatchSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties: 
+      GroupDescription: BatchGroup
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: '-1'
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+      VpcId: !Ref AppVpc
+#
+#  AppSecurityGroup:
+#    Type: AWS::EC2::SecurityGroup
+#    Properties:
+#      GroupDescription: "xx"
+#      SecurityGroupIngress:
+#        - IpProtocol: tcp
+#          FromPort: 22
+#          ToPort: 22
+#          CidrIp: 0.0.0.0/0
+#      VpcId: !Ref AppVpc
+#  AppInstance:
+#    Type: AWS::EC2::Instance
+#    Properties:
+#      ImageId: ami-383c1956
+#      InstanceType: t2.micro
+#      #SecurityGroupIds:
+#      #  - !GetAtt  AppSecurityGroup.GroupId
+#      #SubnetId: !Ref AppPublicSubnetA
+#      KeyName: !Ref KeyPair
+#      NetworkInterfaces:
+#        - DeviceIndex: "0"
+#          AssociatePublicIpAddress: true
+#          GroupSet:
+#            - !Ref AppSecurityGroup
+#          SubnetId: !Ref AppPublicSubnetA
+#
+
+
+
+
+#-------------------
+# IAM
+#-------------------
+# https://docs.aws.amazon.com/ja_jp/batch/latest/userguide/service_IAM_role.html
+  ecsInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role
+        - arn:aws:iam::aws:policy/AmazonEC2FullAccess
+        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+      Path: "/"
+  ecsInstanceProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Roles:
+        - !Ref ecsInstanceRole
+  AWSBatchServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - batch.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
+      Path: "/service-role/"
+#-------------------
+# COMPUTE
+#-------------------
+  AppInstance:
+    Type: AWS::Batch::ComputeEnvironment
+    Properties:
+      ServiceRole: !GetAtt AWSBatchServiceRole.Arn
+      Type: MANAGED
+      ComputeResources:
+        InstanceRole: !GetAtt ecsInstanceProfile.Arn
+        InstanceTypes:
+          - optimal
+        MaxvCpus: 2
+        MinvCpus: 0
+        SecurityGroupIds:
+          - !Ref BatchSecurityGroup
+        Subnets:
+          - !Ref AppPublicSubnetA
+          - !Ref AppPublicSubnetC
+        Type: EC2
+        Ec2KeyPair: !Ref KeyPair
+      ComputeEnvironmentName: AppBatch
+      State: ENABLED
+  AppJobQueue:
+    Type: AWS::Batch::JobQueue
+    Properties:
+      ComputeEnvironmentOrder:
+        - ComputeEnvironment: !Ref AppInstance
+          Order: 1
+      Priority: 1
+      State: ENABLED
+      JobQueueName: AppsBatch
+  AppJobDefinition:
+    Type: AWS::Batch::JobDefinition
+    Properties:
+      Type: container
+      JobDefinitionName: AppBatch
+      ContainerProperties:
+        Command: 
+          - sleep
+          - "30"
+        Memory: 2048
+        Vcpus: 2
+        Image: busybox
+      RetryStrategy:
+        Attempts: 1
+
+ 
+
+      
