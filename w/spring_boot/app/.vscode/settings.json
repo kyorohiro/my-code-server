@@ -1,0 +1,13 @@
+{
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.home": "/usr/local/openjdk-11",
+    "java.maven.downloadSources": true,
+    "java.import.gradle.enabled": true,
+    "java.errors.incompleteClasspath.severity": "warning",
+}
