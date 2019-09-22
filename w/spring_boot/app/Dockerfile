@@ -20,3 +20,5 @@ RUN /works/code-server --install-extension redhat.java
 RUN wget https://github.com/cdr/code-server/releases/download/2.1523-vsc1.38.1/code-server2.1523-vsc1.38.1-linux-x86_64.tar.gz
 RUN tar xzf code-server2.1523-vsc1.38.1-linux-x86_64.tar.gz -C ./ --strip-components 1
 
+#
+RUN apt-get install -y mysql-server
