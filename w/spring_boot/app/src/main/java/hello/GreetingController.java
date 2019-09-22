@@ -27,6 +27,7 @@ public class GreetingController {
 
     @RequestMapping("/users")
     public List<UsersEntity> users() {
+        //(new UsersEntity()).g
         List<UsersEntity> lists = usersMapper.findAll();
         return lists;
     }

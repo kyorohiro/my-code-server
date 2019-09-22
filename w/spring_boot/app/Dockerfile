@@ -15,6 +15,8 @@ RUN unzip gradle-5.4.1-bin.zip
 ENV PATH="/works/gradle-5.4.1/bin:${PATH}"
 RUN /works/code-server --install-extension naco-siren.gradle-language
 RUN /works/code-server --install-extension redhat.java
+RUN /works/code-server --install-extension gabrielbb.vscode-lombok
+
 #
 # code-server
 RUN wget https://github.com/cdr/code-server/releases/download/2.1523-vsc1.38.1/code-server2.1523-vsc1.38.1-linux-x86_64.tar.gz
