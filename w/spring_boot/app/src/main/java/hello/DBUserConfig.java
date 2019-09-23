@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 @Configuration
-@MapperScan(basePackages = "hello.user")
-class ApplicationConfig {
+@MapperScan(basePackages = "hello.user.mapper", sqlSessionFactoryRef = "sqlSessionFactoryUser")
+class DBUserConfig {
 
     @Value("${datasource.user.url}")
     private String url;
@@ -28,9 +28,9 @@ class ApplicationConfig {
     @Value("${datasource.user.driverClassName}")
     private String driverClass;
 
-    @Bean(name = "masterDataSource")
+    @Bean(name = "dataSourceUser")
     @Primary
-    public DataSource getDataSource() {
+    public DataSource dataSourceUser() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(driverClass);
         dataSource.setUrl(url);
@@ -39,14 +39,16 @@ class ApplicationConfig {
         return dataSource;
     }
 
-    @Bean
-    public DataSourceTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(getDataSource());
+    @Bean("transactionManagerUser")
+    @Primary
+    public DataSourceTransactionManager transactionManagerUser() {
+        return new DataSourceTransactionManager(dataSourceUser());
     }
-    @Bean
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
+    @Bean("sqlSessionFactoryUser")
+    @Primary
+    public SqlSessionFactory sqlSessionFactoryUser() throws Exception {
        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-       sessionFactory.setDataSource(getDataSource());
+       sessionFactory.setDataSource(dataSourceUser());
        return sessionFactory.getObject();
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hello.app.mapper.AppsEntity;
+import hello.app.mapper.AppsMapper;
 import hello.user.mapper.UsersEntity;
 import hello.user.mapper.UsersMapper;
 
@@ -18,6 +20,8 @@ public class GreetingController {
     private final AtomicLong counter = new AtomicLong();
     @Autowired
     private UsersMapper usersMapper;
+    @Autowired
+    private AppsMapper appsMapper;
 
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
@@ -29,6 +33,13 @@ public class GreetingController {
     public List<UsersEntity> users() {
         //(new UsersEntity()).g
         List<UsersEntity> lists = usersMapper.findAll();
+        return lists;
+    }
+
+    @RequestMapping("/apps")
+    public List<AppsEntity> apps() {
+        //(new UsersEntity()).g
+        List<AppsEntity> lists = appsMapper.findAll();
         return lists;
     }
 }
