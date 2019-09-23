@@ -18,7 +18,8 @@ services:
       - "3306:3306"
     environment: 
       MYSQL_ROOT_PASSWORD: passwd
-      MYSQL_DATABASE: hello
-      MYSQL_USER: root
-      MYSQL_PASSWORD: passwd
-
+#      MYSQL_DATABASE: hello
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: passwd
+    volumes:
+      - ./mysqld/init/:/docker-entrypoint-initdb.d/:rw
