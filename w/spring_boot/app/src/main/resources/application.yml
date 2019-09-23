@@ -1,11 +1,11 @@
 # spring:
 datasource:
-  one:
+  user:
     url: jdbc:mysql://mysqld:3306/user_db?autoReconnect=true&useSSL=false
     username: root
     password: passwd
     driverClassName: com.mysql.jdbc.Driver
-  two:
+  app:
     url: jdbc:mysql://mysqld:3306/app_db?autoReconnect=true&useSSL=false
     username: root
     password: passwd

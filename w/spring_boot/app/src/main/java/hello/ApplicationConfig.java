@@ -13,19 +13,19 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 @Configuration
-@MapperScan(basePackages = "hello")
+@MapperScan(basePackages = "hello.user")
 class ApplicationConfig {
 
-    @Value("${datasource.one.url}")
+    @Value("${datasource.user.url}")
     private String url;
 
-    @Value("${datasource.one.username}")
+    @Value("${datasource.user.username}")
     private String user;
 
-    @Value("${datasource.one.password}")
+    @Value("${datasource.user.password}")
     private String password;
 
-    @Value("${datasource.one.driverClassName}")
+    @Value("${datasource.user.driverClassName}")
     private String driverClass;
 
     @Bean(name = "masterDataSource")

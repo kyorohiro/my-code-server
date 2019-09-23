@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hello.mapper.UsersEntity;
-import hello.mapper.UsersMapper;
+import hello.user.mapper.UsersEntity;
+import hello.user.mapper.UsersMapper;
 
 @RestController
 public class GreetingController {

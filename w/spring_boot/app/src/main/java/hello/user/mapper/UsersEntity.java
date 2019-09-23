@@ -1,4 +1,4 @@
-package hello.mapper;
+package hello.user.mapper;
 
 import lombok.Data;
 
