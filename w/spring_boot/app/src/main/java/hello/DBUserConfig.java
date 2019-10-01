@@ -44,6 +44,7 @@ class DBUserConfig {
     public DataSourceTransactionManager transactionManagerUser() {
         return new DataSourceTransactionManager(dataSourceUser());
     }
+
     @Bean("sqlSessionFactoryUser")
     @Primary
     public SqlSessionFactory sqlSessionFactoryUser() throws Exception {
