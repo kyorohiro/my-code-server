@@ -1,0 +1,13 @@
+version: "3"
+services:
+  nginx:
+    build: 
+      context: .
+    volumes: 
+      - ./html/www:/var/www/html
+    ports: 
+      - "80:80"
+      - "443:443"
+      - "8443:8443"
+    command: /works/code-server --no-auth --allow-http --port 8443 --host 0.0.0.0 
+    #command: nginx
