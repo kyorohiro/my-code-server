@@ -9,5 +9,20 @@ services:
       - "80:80"
       - "443:443"
       - "8443:8443"
-    command: /works/code-server --no-auth --allow-http --port 8443 --host 0.0.0.0 /etc/nginx
-    #command: nginx
+    links: 
+      - flask
+    #command: /works/code-server --no-auth --allow-http --port 8443 --host 0.0.0.0 /etc/nginx
+    command: nginx
+  flask:
+    build:
+      context: ./flask
+    volumes: 
+      - ./flask:/works/app
+    ports: 
+      - "18080:8080"
+      - "18443:8443"
+    #command: /works/code-server --no-auth --allow-http --port 8443 --host 0.0.0.0 /works/app
+    command: python main.py 
+  
+
+
