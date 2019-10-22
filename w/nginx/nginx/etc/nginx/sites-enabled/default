@@ -39,7 +39,7 @@ server {
 	#
 	# include snippets/snakeoil.conf;
 
-	root /var/www/html;
+	#root /var/www/html;
 
 	index index.html index.htm;
 
@@ -47,6 +47,7 @@ server {
 
 
 	# add 
+	# http://127.0.0.1/api/v1/hello
     location /api/ {
         proxy_set_header    Host    $host;
         proxy_set_header    X-Real-IP    $remote_addr;
@@ -57,7 +58,16 @@ server {
         proxy_pass http://flask:8080/api/;
     }
 
+	#
+	# http://127.0.0.1/static/
+	location /static/ {
+		alias /var/www/html/;
+	}
+
+	#
+	# http://127.0.0.1/
 	location / {
+		root /var/www/html;
 		try_files $uri $uri/ =404;
 	}
 }
