@@ -15,11 +15,12 @@ RUN /usr/local/bin/python -m pip install -U pylint --user
 RUN /usr/local/bin/python -m pip install -r requirements.txt
 
 
-RUN /works/code-server --install-extension ms-python.python
 WORKDIR /works
 RUN wget https://github.com/cdr/code-server/releases/download/2.1650-vsc1.39.2/code-server2.1650-vsc1.39.2-linux-x86_64.tar.gz
 RUN tar xzf code-server2.1650-vsc1.39.2-linux-x86_64.tar.gz -C ./ --strip-components 1
+RUN /works/code-server --install-extension ms-python.python
 
+WORKDIR /app
 CMD ["/works/code-server", "--auth","none", "--host","0.0.0.0","--port","8443"]
 
 #
