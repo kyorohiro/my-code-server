@@ -12,8 +12,8 @@ services:
       - "8443:8443"
     links: 
       - flask
-    #command: /works/code-server --no-auth --allow-http --port 8443 --host 0.0.0.0 /etc/nginx
-    command: nginx
+    command: /works/code-server --no-auth --allow-http --port 8443 --host 0.0.0.0 /etc/nginx
+    #command: nginx
   flask:
     build:
       context: ./flask

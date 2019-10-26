@@ -1,0 +1,13 @@
+#
+# pip freeze > requirements.txt
+#
+astroid==2.3.2
+isort==4.3.21
+lazy-object-proxy==1.4.2
+mccabe==0.6.1
+numpy==1.17.3
+pylint==2.4.3
+six==1.12.0
+wrapt==1.11.2
+scipy
+matplotlib

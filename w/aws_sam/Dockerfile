@@ -49,5 +49,7 @@ RUN git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
 ENV PATH="${PATH}:~/.linuxbrew/Homebrew/bin"
 RUN  brew tap aws/tap & brew install aws-sam-cli
 
+# https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html
+
 
 
