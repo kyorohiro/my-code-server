@@ -4,7 +4,7 @@ services:
     build: 
       context: .
     volumes: 
-      - ./:/works/app
+      - ./:/app
     ports: 
       - "28080:8080"
       - "28443:8443"
