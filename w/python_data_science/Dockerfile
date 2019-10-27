@@ -9,9 +9,11 @@ RUN apt-get install -y curl wget gnupg less lsof net-tools git apt-utils -y
 
 
 WORKDIR /app
+COPY ./requirements_pre.txt /app/requirements_pre.txt
 COPY ./requirements.txt /app/requirements.txt
 RUN apt-get install -y libpng-dev freetype* libblas-dev liblapack-dev libatlas-base-dev gfortran
 RUN /usr/local/bin/python -m pip install -U pylint --user
+RUN /usr/local/bin/python -m pip install -r requirements_pre.txt
 RUN /usr/local/bin/python -m pip install -r requirements.txt
 
 
