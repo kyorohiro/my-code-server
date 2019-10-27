@@ -24,7 +24,7 @@ RUN yarn global add @vue/cli
 #
 RUN npm install --registry=https://registry.npmjs.org/ 
 RUN npm install --registry=https://custom.npm.registry.com/ 
-
+RUN /works/code-server --install-extension octref.vetur
 WORKDIR /app
 CMD ["/works/code-server", "--auth","none", "--host","0.0.0.0","--port","8443", "/app"]
 
