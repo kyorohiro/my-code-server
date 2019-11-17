@@ -12,5 +12,8 @@ services:
     command: sh /app/docker-start-script.sh
     # command: sh /opt/bin/entry_point.sh 
     # command: /works/code-server --auth none --host 0.0.0.0 --port 8443 /app
+    #
+    # vnc password is 'secret'
+    #
     
 
