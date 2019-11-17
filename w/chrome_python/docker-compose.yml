@@ -9,7 +9,8 @@ services:
       - 5900:5900 
       - 8443:8443
       - 8080:8080
-    #command: /works/code-server --auth none --host 0.0.0.0 --port 8443 /app
-    # /works/code-server --auth none --host 0.0.0.0 --port 8443 /app
+    command: sh /app/docker-start-script.sh
+    # command: sh /opt/bin/entry_point.sh 
+    # command: /works/code-server --auth none --host 0.0.0.0 --port 8443 /app
     
 
