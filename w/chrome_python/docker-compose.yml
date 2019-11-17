@@ -1,0 +1,15 @@
+version: '3'
+services: 
+  app:
+    build: .
+    volumes: 
+      - ./:/app
+    ports: 
+      - 4444:4444 
+      - 5900:5900 
+      - 8443:8443
+      - 8080:8080
+    #command: /works/code-server --auth none --host 0.0.0.0 --port 8443 /app
+    # /works/code-server --auth none --host 0.0.0.0 --port 8443 /app
+    
+
