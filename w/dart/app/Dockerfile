@@ -9,8 +9,8 @@ RUN sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/
 RUN apt-get update
 RUN apt-get -y install dart
 
-RUN wget https://github.com/cdr/code-server/releases/download/2.1665-vsc1.39.2/code-server2.1665-vsc1.39.2-linux-x86_64.tar.gz
-RUN tar -xzf code-server2.1665-vsc1.39.2-linux-x86_64.tar.gz -C ./ --strip-components 1
+RUN wget https://github.com/cdr/code-server/releases/download/2.1692-vsc1.39.2/code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz
+RUN tar -xzf code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz -C ./ --strip-components 1
 
 RUN /works/code-server --install-extension Dart-Code.dart-code
 
