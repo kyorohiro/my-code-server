@@ -4,14 +4,14 @@
 #touch ~/.vnc/passwd
 #x11vnc -storepasswd "kyorohiro" ~/.vnc/passwd
 
-sh /opt/bin/entry_point.sh &
+sh /opt/bin/entry_point.sh 
 status=$?
 if [ $status -ne 0 ]; then
   echo "Failed to start my_first_process: $status"
   exit $status
 fi
 
-/works/code-server --auth none --host 0.0.0.0 --port 8443 /app
+#/works/code-server --auth none --host 0.0.0.0 --port 8443 /app
 
 
 # ref
