@@ -5,7 +5,7 @@ import "fmt"
 
 //export PrintHello
 func PrintHello() {
-	fmt.Print("xx")
+	fmt.Print("Hello,World")
 }
 
 func main() {}

@@ -32,6 +32,7 @@ RUN tar -xzf code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz -C ./ --strip-compo
 
 RUN /works/code-server --install-extension Dart-Code.dart-code
 RUN /works/code-server --install-extension ms-vscode.go
+RUN /works/code-server --install-extension ms-vscode.cpptools
 
 WORKDIR /app
 ENV PATH=${PATH}:/lib/dart/bin
