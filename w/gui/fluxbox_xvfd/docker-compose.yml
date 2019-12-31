@@ -1,0 +1,16 @@
+version: '3'
+services: 
+  app:
+    build: .
+    ports: 
+      - "8080:8080"
+      - "8443:8443"
+      - "5900:5900"
+      - "5920:5920"
+#    command: tail -f /dev/null
+    deploy:
+      resources:
+        limits:
+          memory: 1024m
+    command: ["sh", "/opt/execute.sh"]
+
