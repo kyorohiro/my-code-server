@@ -20,9 +20,9 @@ RUN tar xf Python-3.8.3.tgz
 WORKDIR /works/Python-3.8.3
 RUN ./configure --enable-optimizations
 RUN make altinstall
-RUN pip3.8  install --upgrade pip
+RUN pip3.8 install --upgrade pip
 RUN ln /usr/local/bin/python3.8 /usr/local/bin/python  
-
+RUN pip install pylint
 
 # install plugin
 RUN code-server --install-extension ms-python.python
